@@ -1,0 +1,7 @@
+{
+  "name": "competences",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
