@@ -6,9 +6,9 @@ import PersonnesService from "../services/PersonnesService";
 
 const PeoplePage: React.FC = () => {
     const [people, setPeople] = useState<Personne[]>([]);
-    const [name, setName] = useState<string>('');
-    const [competences, setCompetences] = useState<NiveauCompetence[]>([]);
-    const [niveau, setNiveau] = useState<string>('');
+    const [name, setName] = useState<string>("");
+    const [competence, setCompetence] = useState<string>("");
+    const [niveau, setNiveau] = useState<string>("");
     const [editing, setEditing] = useState<number | null>(null);
     const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -45,6 +45,7 @@ const PeoplePage: React.FC = () => {
                     <IonTitle>Profile</IonTitle>
                 </IonToolbar>
             </IonHeader>
+
             <IonContent>
                 {people.map(person => (
                     <IonGrid key={person.id}>
@@ -56,44 +57,47 @@ const PeoplePage: React.FC = () => {
                             </IonCol>
                         </IonRow>
 
-                        <IonRow>
-                            <IonCol>
-                                <IonItem>
-                                    <IonLabel>
-                                        {person.niveauCompetence ?
-                                            person.niveauCompetence.map(competence => `${competence.competence} - ${competence.niveau}`)
-                                            : []
-                                        }
-                                    </IonLabel>
-                                </IonItem>
-                            </IonCol>
+                        {person.niveauCompetences ?
+                            person.niveauCompetences.map(comp => (
+                                <IonRow>
+                                    <IonCol>
+                                        <IonItem>
+                                            {comp.competence}
+                                        </IonItem>
+                                    </IonCol>
+                                    <IonCol>
+                                        <IonItem>
+                                            {comp.niveau}
+                                        </IonItem>
+                                    </IonCol>
 
-                            <IonCol>
-                                <IonButton onClick={() => {
-                                    setName(person.nom);
-                                    setCompetences(person.niveauCompetence);
-                                    setEditing(person.id);
-                                }}>Modifier</IonButton>
-                                {/* <IonButton onClick={() => deletePerson(person.id)}>Supprimer</IonButton> */}
-                            </IonCol>
-                        </IonRow>
+                                    <IonCol>
+                                        <IonButton onClick={() => {
+                                            setName(person.nom);
+                                            setCompetence(comp.competence);
+                                            setNiveau(comp.niveau);
+                                            setShowModal(true);
+                                            setEditing(person.id);
+                                        }}>Modifier</IonButton>
+                                        {/* <IonButton onClick={() => deletePerson(person.id)}>Supprimer</IonButton> */}
+                                    </IonCol>
+                                </IonRow>
+                            ))
+                            : []
+                        }
                     </IonGrid>
                 ))}
 
                 <IonModal isOpen={showModal}>
                     <IonHeader>
                         <IonToolbar>
-                            <IonTitle>Ajouter une personne</IonTitle>
+                            <IonTitle>Modifier compétence</IonTitle>
                         </IonToolbar>
                     </IonHeader>
                     <IonContent>
                         <IonItem>
-                            <IonLabel position="floating">Nom</IonLabel>
-                            <IonInput value={name} onIonChange={e => setName(e.detail.value!)} />
-                        </IonItem>
-                        <IonItem>
                             <IonLabel position="floating">Compétences</IonLabel>
-                            {/* <IonInput value={competences} onIonChange={e => setCompetences(e.detail.value!)} /> */}
+                            <IonInput value={competence} onIonChange={e => setCompetence(e.detail.value!)} />
                         </IonItem>
                         <IonItem>
                             <IonLabel position="floating">Niveau</IonLabel>

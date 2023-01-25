@@ -1,14 +1,12 @@
-import { Niveau } from "./Niveau";
-
 export default class NiveauCompetence {
     id: number;
     competence: string;
-    niveau: Niveau;
+    niveau: string;
 
     constructor(
         id: number,
         competence: string = "",
-        niveau: Niveau,
+        niveau: string,
     ) {
         this.id = id;
         this.competence = competence;

@@ -3,15 +3,15 @@ import NiveauCompetence from "./NiveauCompetence";
 export default class Personne {
     id: number;
     nom: string;
-    niveauCompetence: NiveauCompetence[];
+    niveauCompetences: NiveauCompetence[];
 
     constructor(
         id: number,
         nom: string = "",
-        niveauCompetence: NiveauCompetence[],
+        niveauCompetences: NiveauCompetence[],
     ) {
         this.id = id;
         this.nom = nom;
-        this.niveauCompetence = niveauCompetence;
+        this.niveauCompetences = niveauCompetences;
     }
 }
